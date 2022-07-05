@@ -22,15 +22,18 @@ def single_view(request, pid):
     # counted view adding method
     post.counted_views += 1
     post.save()
-    # previous and next post
+    # previous post
+    pre_posts = Post.objects.filter(id__lt= pid, status=True)
     try:
-        previous_post = Post.objects.get(status=True, pk = pid - 1)
-    except Post.DoesNotExist:
+        previous_post = pre_posts[0]
+    except:
         previous_post = None
-        
+    # next post
+    nex_posts = Post.objects.filter(id__gt= pid, status=True)
+    l = len(nex_posts)-1
     try:
-        next_post = Post.objects.get(status=True, pk = pid + 1)
-    except Post.DoesNotExist:
+        next_post = nex_posts[l]
+    except:
         next_post = None
 
     context = {'post':post, 'previous':previous_post, 'next':next_post}
