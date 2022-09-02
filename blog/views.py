@@ -1,9 +1,11 @@
+from tkinter import N
+from unicodedata import category
 from django.shortcuts import render, get_object_or_404
 from blog.models import Post
 from django.utils import timezone
 
 
-def blog_view(request):
+def blog_view(request, **kwargs):
     # determining which post to show based on publish date
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now)
@@ -11,6 +13,12 @@ def blog_view(request):
     for post in posts:
         post.status = True
         post.save()
+    # category division
+    if kwargs.get('cat_name') !=None:
+        posts = posts.filter(category__name=kwargs['cat_name'])
+    # author division
+    if kwargs.get('author_username') !=None:
+        posts = posts.filter(author__username=kwargs['author_username'])
 
     context = {'posts':posts}
     return render(request, 'blog/blog-home.html', context)
@@ -39,3 +47,15 @@ def single_view(request, pid):
     context = {'post':post, 'previous':previous_post, 'next':next_post}
     return render(request, 'blog/blog-single.html', context)
 
+def blog_search(request):
+    # determining which post to show based on publish date
+    now = timezone.now()
+    posts = Post.objects.filter(published_date__lte=now)
+    # setting status for published posts
+    for post in posts:
+        post.status = True
+        post.save()
+    if request.method == 'GET':
+        posts = posts.filter(content__contains=request.GET.get('s'))
+    context = {'posts':posts}
+    return render(request, 'blog/blog-home.html', context)
