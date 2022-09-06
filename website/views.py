@@ -9,7 +9,9 @@ def about_view(request):
 
 def contact_view(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        modified_request = request.POST.copy()
+        modified_request['name'] = 'Unknown'
+        form = ContactForm(modified_request)
         if form.is_valid():
             form.save()
     form = ContactForm()
