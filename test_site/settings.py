@@ -188,3 +188,5 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+AUTHENTICATION_BACKENDS = ('accounts.email_username_login.EmailBackend',)
