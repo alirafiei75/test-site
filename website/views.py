@@ -90,4 +90,7 @@ def password_reset_confirm_view(request, username, uidb64, token):
 def password_reset_complete_view(request):
     return render(request, 'passwords/password_reset_complete.html')
 
+def maintenance(request):
+    return render(request, 'website/maintenance.html')
+
 

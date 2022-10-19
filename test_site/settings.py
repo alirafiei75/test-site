@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from pickle import TRUE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'website.middleware.MaintenanceModeMiddleware',
 ]
 
 ROOT_URLCONF = 'test_site.urls'
@@ -170,3 +172,5 @@ EMAIL_HOST_USER = "a.rafiei1375@gmail.com"
 EMAIL_HOST_PASSWORD = "hdecztgyhtnreetr"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+MAINTENANCE_MODE = True

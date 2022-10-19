@@ -11,4 +11,5 @@ urlpatterns = [
     path('password_reset/done', password_reset_done_view, name='password_reset_done'),
     path('password_reset_confirm/<str:username>/<str:uidb64>/<str:token>', password_reset_confirm_view, name='password_reset_confirm'),
     path('password_reset/complete', password_reset_complete_view, name='password_reset_complete'),
+    path('maintenance/', maintenance, name='maintenance'),
 ]
